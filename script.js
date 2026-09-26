@@ -10,6 +10,8 @@ const accessForm = document.querySelector('#access-form');
 const accessStatus = document.querySelector('#access-status');
 const countdownLabel = document.querySelector('.countdown-label');
 const trackButtons = document.querySelectorAll('.request-track');
+const legacyPreviewButton = document.querySelector('#legacy-preview-button');
+const legacyPreviewStatus = document.querySelector('#legacy-preview-status');
 
 let requestStarted = false;
 let timerId;
@@ -34,6 +36,12 @@ function selectSong(song) {
 
 trackButtons.forEach((button) => {
   button.addEventListener('click', () => selectSong(button.dataset.song));
+});
+
+legacyPreviewButton?.addEventListener('click', () => {
+  legacyPreviewStatus.textContent = 'The official Apple catalog confirms this single but does not expose a stable preview audio URL. Playback is therefore unavailable in this static prototype; use the official Apple listing to listen when supported on your device.';
+  legacyPreviewButton.textContent = 'Preview unavailable here';
+  legacyPreviewButton.disabled = true;
 });
 
 function startCountdown() {

@@ -1,4 +1,5 @@
 const requestForm = document.querySelector('#request-form');
+const requestSection = document.querySelector('#request');
 const contactInput = document.querySelector('#contact');
 const formStatus = document.querySelector('#form-status');
 const countdown = document.querySelector('#countdown');
@@ -8,6 +9,7 @@ const codeButton = document.querySelector('#code-button');
 const accessForm = document.querySelector('#access-form');
 const accessStatus = document.querySelector('#access-status');
 const countdownLabel = document.querySelector('.countdown-label');
+const trackButtons = document.querySelectorAll('.request-track');
 
 let requestStarted = false;
 let timerId;
@@ -19,11 +21,28 @@ function formatTime(totalSeconds) {
   return `${minutes}:${seconds}`;
 }
 
+function selectSong(song) {
+  const radio = [...document.querySelectorAll('input[name="song"]')]
+    .find((input) => input.value === song);
+  if (!radio) return;
+  radio.checked = true;
+  radio.closest('.song-option')?.scrollIntoView({ block: 'nearest' });
+  formStatus.textContent = `“${song}” selected. Add your contact below to start the request.`;
+  requestSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.setTimeout(() => contactInput.focus(), 450);
+}
+
+trackButtons.forEach((button) => {
+  button.addEventListener('click', () => selectSong(button.dataset.song));
+});
+
 function startCountdown() {
   let remaining = WAIT_SECONDS;
   countdown.textContent = formatTime(remaining);
   countdownCopy.textContent = 'Your code entry will become available when the waiting window ends.';
   countdownLabel.innerHTML = '<span class="status-dot"></span> Waiting for confirmation';
+  accessCode.disabled = true;
+  codeButton.disabled = true;
   clearInterval(timerId);
   timerId = setInterval(() => {
     remaining -= 1;
@@ -44,7 +63,8 @@ requestForm.addEventListener('submit', (event) => {
   if (!contactInput.value.trim()) return;
   const selectedSong = document.querySelector('input[name="song"]:checked').value;
   requestStarted = true;
-  formStatus.textContent = `Request noted for “${selectedSong}”. Your 10-minute confirmation window has started.`;
+  formStatus.textContent = `Request noted for “${selectedSong}” at R10. Your 10-minute confirmation window has started.`;
+  formStatus.classList.add('is-confirmed');
   const submitButton = requestForm.querySelector('button[type="submit"]');
   submitButton.innerHTML = 'Request started <span aria-hidden="true">✓</span>';
   submitButton.disabled = true;

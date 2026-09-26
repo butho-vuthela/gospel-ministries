@@ -7,6 +7,7 @@ const accessCode = document.querySelector('#access-code');
 const codeButton = document.querySelector('#code-button');
 const accessForm = document.querySelector('#access-form');
 const accessStatus = document.querySelector('#access-status');
+const countdownLabel = document.querySelector('.countdown-label');
 
 let requestStarted = false;
 let timerId;
@@ -22,6 +23,7 @@ function startCountdown() {
   let remaining = WAIT_SECONDS;
   countdown.textContent = formatTime(remaining);
   countdownCopy.textContent = 'Your code entry will become available when the waiting window ends.';
+  countdownLabel.innerHTML = '<span class="status-dot"></span> Waiting for confirmation';
   clearInterval(timerId);
   timerId = setInterval(() => {
     remaining -= 1;
@@ -31,7 +33,7 @@ function startCountdown() {
       accessCode.disabled = false;
       codeButton.disabled = false;
       countdownCopy.textContent = 'Your confirmation window is open. Enter the code sent to you.';
-      document.querySelector('.countdown-label').innerHTML = '<span class="status-dot"></span> Confirmation window open';
+      countdownLabel.innerHTML = '<span class="status-dot"></span> Confirmation window open';
       accessCode.focus();
     }
   }, 1000);
@@ -43,8 +45,9 @@ requestForm.addEventListener('submit', (event) => {
   const selectedSong = document.querySelector('input[name="song"]:checked').value;
   requestStarted = true;
   formStatus.textContent = `Request noted for “${selectedSong}”. Your 10-minute confirmation window has started.`;
-  requestForm.querySelector('button[type="submit"]').textContent = 'Request started ✓';
-  requestForm.querySelector('button[type="submit"]').disabled = true;
+  const submitButton = requestForm.querySelector('button[type="submit"]');
+  submitButton.innerHTML = 'Request started <span aria-hidden="true">✓</span>';
+  submitButton.disabled = true;
   startCountdown();
   document.querySelector('#access-section')?.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
@@ -52,5 +55,7 @@ requestForm.addEventListener('submit', (event) => {
 accessForm.addEventListener('submit', (event) => {
   event.preventDefault();
   if (!requestStarted || accessCode.disabled) return;
-  accessStatus.textContent = accessCode.value.trim() ? 'Code received. In a connected version, your song would open here.' : 'Enter the access code to continue.';
+  accessStatus.textContent = accessCode.value.trim()
+    ? 'Code received. In a connected version, your song would open here.'
+    : 'Enter the access code to continue.';
 });

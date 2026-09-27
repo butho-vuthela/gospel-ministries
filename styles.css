@@ -111,3 +111,12 @@
 .preview-note strong,.preview-note small{display:block}.preview-note strong{color:#fff;font-size:10px}.preview-note small{margin-top:3px;color:#bfd0e2;font-size:9px}
 @media(max-width:900px){.preview-card{grid-template-columns:130px 1fr;gap:20px}.preview-note{grid-column:2}}
 @media(max-width:560px){.ministry-preview{padding-top:12px;padding-bottom:36px}.preview-card{grid-template-columns:1fr;padding:18px}.preview-art{height:210px}.preview-note{grid-column:auto}.preview-actions .button{width:100%}}
+.play-page:before {
+  background-image: linear-gradient(rgba(8, 22, 45, .08), rgba(8, 22, 45, .08)), var(--page-bg);
+}
+.play-page .page-heading {
+  background-image: linear-gradient(90deg, rgba(8, 22, 45, .34), rgba(8, 22, 45, .10)), url("assets/uzusithwalele-latest.jpg");
+}
+.play-page .section {
+  background: rgba(8, 22, 45, .06);
+}

@@ -30,7 +30,9 @@ document.querySelector('.lightbox-close')?.addEventListener('click',closeLightbo
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeLightbox();closeMenu();}});
 
 const form=document.querySelector('#request-form');const songSelect=document.querySelector('#song');const voucherSelect=document.querySelectorAll('input[name="voucher"]');const voucherInput=document.querySelector('#voucher-reference');const voucherHint=document.querySelector('#voucher-hint');const status=document.querySelector('#form-status');const thankYou=document.querySelector('#thank-you');const contactPhone=document.querySelector('#phone');const contactEmail=document.querySelector('#email');
-if(songSelect&&requestedSong&&songs.includes(requestedSong))songSelect.value=requestedSong;
+const selectedSongNote=document.querySelector('#selected-song');
+function updateSelectedSong(){if(!selectedSongNote||!songSelect)return;selectedSongNote.textContent=songSelect.value?`Selected song: ${songSelect.value}`:'No song selected yet.';}
+if(songSelect){if(requestedSong&&songs.includes(requestedSong))songSelect.value=requestedSong;updateSelectedSong();songSelect.addEventListener('change',updateSelectedSong);}
 function selectedVoucher(){return document.querySelector('input[name="voucher"]:checked')?.value||'1Voucher';}
 function updateVoucherField(){const isOne=selectedVoucher()==='1Voucher';voucherInput.type=isOne?'tel':'text';voucherInput.inputMode=isOne?'numeric':'text';voucherInput.pattern=isOne?'[0-9]{16}':'.{4,}';voucherInput.maxLength=isOne?16:80;voucherInput.placeholder=isOne?'Enter the 16-digit 1Voucher number':'Enter the Blu Voucher number / reference';voucherHint.textContent=isOne?'1Voucher uses exactly 16 digits. Do not enter a PIN or password.':'Enter the Blu Voucher reference. Do not enter a PIN or password.';}
 voucherSelect.forEach(input=>input.addEventListener('change',updateVoucherField));if(voucherInput)updateVoucherField();

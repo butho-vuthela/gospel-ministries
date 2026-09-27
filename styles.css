@@ -120,3 +120,45 @@
 .play-page .section {
   background: rgba(8, 22, 45, .06);
 }
+
+/* Final polish: keep native form controls legible across browser color schemes. */
+.form-card select,
+.form-card select:focus,
+.form-card input {
+  color-scheme: light;
+  color: var(--ink);
+  background-color: #fff;
+}
+.form-card select option,
+.form-card select option:checked {
+  color: var(--ink);
+  background-color: #fff;
+}
+.form-card select:focus-visible,
+.form-card input:focus-visible {
+  outline: 3px solid rgba(15, 76, 129, .38);
+  outline-offset: 2px;
+  border-color: var(--gold-dark);
+}
+.selected-song {
+  margin: 10px 0 0;
+  padding: 11px 13px;
+  border-left: 3px solid var(--gold-dark);
+  background: #eef7ff;
+  color: var(--ink) !important;
+  font-weight: 700;
+}
+.album-catalog { padding-top: 64px; }
+.album-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; }
+.album-card { display:flex; flex-direction:column; min-width:0; background:rgba(8,22,45,.58); border:1px solid rgba(185,216,239,.42); box-shadow:0 12px 28px rgba(2,12,28,.16); overflow:hidden; }
+.album-card img { display:block; width:100%; aspect-ratio:1; object-fit:cover; }
+.album-card-copy { padding:18px; }
+.album-card h3 { margin:4px 0 8px; color:#fff; font:700 24px/1.1 Georgia,serif; }
+.album-card p:not(.kicker) { margin:0 0 14px; color:#dbe6f2; font-size:13px; }
+.album-card .kicker { margin:0; color:#b9d8ef; }
+.album-card .text-link { color:#b9d8ef; }
+.catalog-note { margin:22px 0 0; color:#dbe6f2; font-size:12px; }
+.hero-booking { background:#e0b35f; color:#102342; box-shadow:0 10px 24px rgba(0,0,0,.18); }
+.hero-booking:hover, .hero-booking:focus-visible { background:#f0c875; color:#08162d; }
+@media(max-width:900px){.album-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.album-grid{grid-template-columns:1fr 1fr;gap:10px}.album-card-copy{padding:13px}.album-card h3{font-size:20px}.album-card p:not(.kicker){font-size:12px}.hero-actions .button{width:100%;}}

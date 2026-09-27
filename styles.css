@@ -162,3 +162,22 @@
 .hero-booking:hover, .hero-booking:focus-visible { background:#f0c875; color:#08162d; }
 @media(max-width:900px){.album-grid{grid-template-columns:repeat(2,1fr);}}
 @media(max-width:560px){.album-grid{grid-template-columns:1fr 1fr;gap:10px}.album-card-copy{padding:13px}.album-card h3{font-size:20px}.album-card p:not(.kicker){font-size:12px}.hero-actions .button{width:100%;}}
+
+/* Clear photography and restrained readability treatment. */
+body:before { display:none; }
+.hero-art img { object-fit:contain; object-position:center; background:#13213b; }
+.hero-art:after { background:linear-gradient(180deg, transparent 55%, rgba(5,12,27,.72)); }
+.hero-line .verse-reference { display:block; margin-top:8px; font:700 11px/1.2 Arial,sans-serif; letter-spacing:.16em; text-transform:uppercase; color:#edd6ae; }
+.image-credit { display:block; margin-top:7px; color:#d9c49d; font-size:9px; letter-spacing:.12em; opacity:.85; }
+/* Keep content surfaces intentionally solid rather than hazy. */
+.section, .featured-song, .song-card, .gallery-card, .spotify-card, .form-card, .home-dock-link { background:#fff; }
+/* Keep non-home content surfaces white with dark readable type; retain dark cards only where intentional. */
+.media-page .section, .play-page .section, .download-page .section { background:#fff; color:var(--ink); box-shadow:0 16px 40px rgba(18,24,45,.06); }
+.media-page .section h2, .play-page .section h2, .download-page .section h2 { color:var(--ink); }
+.media-page .section-lead, .play-page .section-lead, .download-page .section-lead { color:var(--muted); }
+.media-page .status-card, .play-page .status-card, .download-page .status-card, .download-page .warning { background:#f4f7fb; color:#394359; border-color:var(--gold-dark); }
+.media-page .status-card strong, .play-page .status-card strong, .download-page .status-card strong, .download-page .warning strong { color:var(--ink); }
+.media-page .gallery-card, .play-page .spotify-card, .download-page .form-card, .play-page .song-card { background:#fff; color:var(--ink); border-color:var(--line); }
+.media-page .gallery-card figcaption, .play-page .spotify-card p, .play-page .song-card p, .download-page .form-card p { color:var(--muted); }
+.download-page .form-card label, .download-page .form-card legend { color:var(--ink); }
+.media-page .chip, .play-page .chip, .download-page .chip { background:#fff; color:var(--ink); border-color:var(--line); }

@@ -13,7 +13,7 @@ const topButton=document.querySelector('.back-to-top');
 window.addEventListener('scroll',()=>topButton?.classList.toggle('is-visible',window.scrollY>500),{passive:true});
 topButton?.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
 
-const params=new URLSearchParams(window.location.search);const requestedSong=params.get('song');
+const params=new URLSearchParams(window.location.search);const requestedSong=params.get('song');const requestedAlbum=params.get('album');
 document.querySelectorAll('[data-song-link]').forEach(link=>{const song=link.dataset.songLink;link.href='download.html?song='+encodeURIComponent(song);});
 const cards=[...document.querySelectorAll('[data-song-card]')];const search=document.querySelector('#song-search');const empty=document.querySelector('[data-empty-catalog]');let songFilter='all';
 function filterSongs(){const query=(search?.value||'').toLowerCase().trim();let shown=0;cards.forEach(card=>{const matchesCategory=songFilter==='all'||card.dataset.category===songFilter;const matchesQuery=card.textContent.toLowerCase().includes(query);const visible=matchesCategory&&matchesQuery;card.hidden=!visible;if(visible)shown++;});if(empty){empty.hidden=shown!==0;empty.textContent=query?`No songs match “${query}” yet.`:'No songs match that filter yet.';}}
@@ -30,9 +30,9 @@ document.querySelector('.lightbox-close')?.addEventListener('click',closeLightbo
 document.addEventListener('keydown',event=>{if(event.key==='Escape'){closeLightbox();closeMenu();}});
 
 const form=document.querySelector('#request-form');const songSelect=document.querySelector('#song');const voucherSelect=document.querySelectorAll('input[name="voucher"]');const voucherInput=document.querySelector('#voucher-reference');const voucherHint=document.querySelector('#voucher-hint');const status=document.querySelector('#form-status');const thankYou=document.querySelector('#thank-you');const contactPhone=document.querySelector('#phone');const contactEmail=document.querySelector('#email');
-const selectedSongNote=document.querySelector('#selected-song');
+const selectedSongNote=document.querySelector('#selected-song');const selectedAlbumNote=document.querySelector('#selected-album');
 function updateSelectedSong(){if(!selectedSongNote||!songSelect)return;selectedSongNote.textContent=songSelect.value?`Selected song: ${songSelect.value}`:'No song selected yet.';}
-if(songSelect){if(requestedSong&&songs.includes(requestedSong))songSelect.value=requestedSong;updateSelectedSong();songSelect.addEventListener('change',updateSelectedSong);}
+if(songSelect){if(requestedSong&&songs.includes(requestedSong))songSelect.value=requestedSong;updateSelectedSong();songSelect.addEventListener('change',updateSelectedSong);}if(selectedAlbumNote&&requestedAlbum){selectedAlbumNote.hidden=false;selectedAlbumNote.textContent=`Album enquiry: ${requestedAlbum}. Choose a track below to continue the MP3 request flow, or ask the ministry about album availability in WhatsApp.`;}
 function selectedVoucher(){return document.querySelector('input[name="voucher"]:checked')?.value||'1Voucher';}
 function updateVoucherField(){const isOne=selectedVoucher()==='1Voucher';voucherInput.type=isOne?'tel':'text';voucherInput.inputMode=isOne?'numeric':'text';voucherInput.pattern=isOne?'[0-9]{16}':'.{4,}';voucherInput.maxLength=isOne?16:80;voucherInput.placeholder=isOne?'Enter the 16-digit 1Voucher number':'Enter the Blu Voucher number / reference';voucherHint.textContent=isOne?'1Voucher uses exactly 16 digits. Do not enter a PIN or password.':'Enter the Blu Voucher reference. Do not enter a PIN or password.';}
 voucherSelect.forEach(input=>input.addEventListener('change',updateVoucherField));if(voucherInput)updateVoucherField();

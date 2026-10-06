@@ -1,4 +1,4 @@
-const songs=['Naba Besiza','Uzusithwalele','Mhlobo Wam','Sahlala Phantsi','Alikho','Intambo Emadlephudlephu','Mthandi Womphefumlo Wam','Hanbothula','Uthando','Umlilo Wempiliso'];
+const songs=['Naba Besiza','Uzusithwalele','Mhlobo Wam','Sahlala Phantsi','Alikho','Intambo Emadlephudlephu','Mthandi Womphefumlo Wam','Hanbothula','Uthando','Umlilo Wempiliso','Olothando Lwakho Nkosi'];
 const bookingUrl='https://wa.me/27822168822?text='+encodeURIComponent('Hello Butho Vuthela Ministries, I would like to book the ministry. Please share availability and details.');
 document.querySelectorAll('[data-booking]').forEach(link=>link.href=bookingUrl);
 
